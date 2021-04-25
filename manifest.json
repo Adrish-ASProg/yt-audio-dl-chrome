@@ -1,0 +1,19 @@
+{
+  "name": "YT-Audio-DL",
+  "description": "Download audio from youtube video",
+  "version": "0.1",
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["src/background.js"],
+    "persistent": true
+  },
+  "page_action": {
+    "default_icon": {
+      "128": "res/images/icon_128.png"
+    }
+  },
+  "icons": {
+    "128": "res/images/icon_128.png"
+  },
+  "permissions": ["nativeMessaging", "tabs"]
+}

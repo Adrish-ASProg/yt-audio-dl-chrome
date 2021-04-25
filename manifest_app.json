@@ -1,0 +1,9 @@
+{
+  "name": "com.asoft.ytdl",
+  "description": "Download audio from youtube video",
+  "path": "src/receiver.py",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://lfpiabbenkcinakdidnfddpgndoaahle/"
+  ]
+}
