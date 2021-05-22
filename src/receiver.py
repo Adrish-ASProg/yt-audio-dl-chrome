@@ -5,6 +5,10 @@ import struct
 import sys
 import os
 
+# USE_YTDL = True
+USE_YTDL = False
+YTDL_URL = "http://localhost:8100/home?id={}"
+
 # On Windows, the default I/O mode is O_TEXT. Set this to O_BINARY
 # to avoid unwanted modifications of the input/output streams.
 if sys.platform == "win32":
@@ -18,7 +22,10 @@ def downloadAudio(url):
     "^& youtube-dl -o ../downloads/%(title)s.%(ext)s --no-playlist --extract-audio --audio-format mp3 {}"
     "^& pause")
     os.system("start cmd /c " + command.format(url, url))
-    sys.exit(0)
+
+def downloadAudioWithYtdl(id):
+    url = YTDL_URL.format(id)
+    os.system("start " + url) # /!\
 
 # Thread that reads messages from the webapp.
 def read_thread_func(queue):
@@ -35,8 +42,13 @@ def read_thread_func(queue):
 
     # Read the text (JSON object) of the message.
     text = sys.stdin.read(text_length)
-    url = json.loads(text)['text']
-    downloadAudio(url)
+    id = json.loads(text)['text']
+
+    if (USE_YTDL):
+      downloadAudioWithYtdl(id)
+    else:
+      downloadAudio(id)
+    sys.exit(0)
 
 
 def Main():

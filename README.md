@@ -5,7 +5,9 @@ Chrome extension to download audio from YouTube video.
 
 
 This is a simple way to run a [youtube-dl](https://github.com/ytdl-org/youtube-dl/) command directly from a video page.  
-[youtube-dl](https://github.com/ytdl-org/youtube-dl/) is not included, you should install it and make it runnable through command line. 
+[youtube-dl](https://github.com/ytdl-org/youtube-dl/) is not included, you should install it and make it runnable through command line.
+
+Also possible to use my (wip) other tool [YT-Audio-DL](https://github.com/Adrish-ASProg/yt-audio-dl) (not documented yet) by updating `USE_YTDL` value in [receiver.py](./src/receiver.py).
 
 Run [install_host.bat](./install_host.bat) to allow windows to handle message received from the extension.
 

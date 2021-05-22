@@ -1,21 +1,28 @@
-const ALLOWED_PAGE = "youtube.com";
+import { getYTPlaylistId, getYTVideoId } from "./yt-url-utils";
 
-chrome.tabs.onUpdated.addListener(onTabUpdated);
+chrome.tabs.onUpdated.addListener(togglePageActionVisibility);
 chrome.pageAction.onClicked.addListener(onToolbarBtnClicked);
 
-function onTabUpdated(tabId, changeInfo, tab) {
+function togglePageActionVisibility(tabId, changeInfo, tab) {
   if (!tabId || !tab.url) return;
-  togglePageActionVisibility(tabId, tab.url)
-}
 
-function togglePageActionVisibility(tabId, url) {
-  if (url.includes(ALLOWED_PAGE)) {
+  if (shouldDisplayPageAction(tab.url)) {
     chrome.pageAction.show(tabId);
   } else {
     chrome.pageAction.hide(tabId);
   }
 }
 
+function shouldDisplayPageAction(url) {
+  const id = getYTVideoId(url);
+  const playlistId = getYTPlaylistId(url);
+
+  return (id != null || playlistId != null);
+}
+
 function onToolbarBtnClicked(tab) {
-  chrome.runtime.sendNativeMessage("com.asoft.ytdl", { text: tab.url });
+  const id = getYTVideoId(tab.url);
+  const playlistId = getYTPlaylistId(tab.url);
+
+  chrome.runtime.sendNativeMessage("com.asoft.ytdl", { text: id || playlistId });
 }
